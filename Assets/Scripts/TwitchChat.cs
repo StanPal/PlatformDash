@@ -7,7 +7,7 @@ using UnityEngine;
 public class TwitchChat : MonoBehaviour
 {
     public event System.Action<string> OnMessageReceived;
-
+    private UIMenu UIMenu; 
     private TcpClient twitchClient;
     private string server = "irc.chat.twitch.tv";
     private int port = 6667;
@@ -16,6 +16,11 @@ public class TwitchChat : MonoBehaviour
     private string channelName = "yoitscrow";
     private Queue<string> commandQueue = new Queue<string>();
     private List<string> receivedMessages = new List<string>();
+
+    private void Awake()
+    {
+        channelName = UIMenu.ChannelName;
+    }
 
     void Start()
     {
