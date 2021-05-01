@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TwitchCommands : MonoBehaviour
 {
-
+    public System.Action<string> OnChatCalled;
     private float[] xPositions = { -5.0f, 5.0f };
 
     [SerializeField]
@@ -21,7 +21,7 @@ public class TwitchCommands : MonoBehaviour
 
     [SerializeField]
     GameObject enemyPrefab;
-
+    private ChatLog _chatLog; 
     private PlayerStats playerStats;
     private PlayerController playerController;
     private PlatFormManager platform;
@@ -35,11 +35,12 @@ public class TwitchCommands : MonoBehaviour
         SpawnManager = FindObjectOfType<EnemySpawnManager>();
         TwitchChat twitchChat = FindObjectOfType<TwitchChat>();
         twitchChat.OnMessageReceived += (x) => twitchCommands(x);
-        
+        _chatLog = FindObjectOfType<ChatLog>();
     }
     
     private void twitchCommands(string twitchMessage)
-    {
+    {        
+        OnChatCalled?.Invoke(twitchMessage);
         if (twitchMessage.ToLower() == twitchMessageHeal.ToLower())
         {
             playerStats.playerHeal();
