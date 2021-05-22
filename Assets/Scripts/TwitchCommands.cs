@@ -17,7 +17,7 @@ public class TwitchCommands : MonoBehaviour
     private string twitchMessageSpeed = "speed";
     private string twitchMessageSlow = "slow";
     private string twitchMessageInvert = "invert";
-
+    
 
     [SerializeField]
     GameObject enemyPrefab;
@@ -34,13 +34,13 @@ public class TwitchCommands : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
         SpawnManager = FindObjectOfType<EnemySpawnManager>();
         TwitchChat twitchChat = FindObjectOfType<TwitchChat>();
-        twitchChat.OnMessageReceived += (x) => twitchCommands(x);
+        twitchChat.OnMessageReceived += (x,y) => twitchCommands(x,y);
         _chatLog = FindObjectOfType<ChatLog>();
     }
     
-    private void twitchCommands(string twitchMessage)
+    private void twitchCommands(string twitchMessage, string userMessage)
     {        
-        OnChatCalled?.Invoke(twitchMessage);
+        OnChatCalled?.Invoke(userMessage);
         if (twitchMessage.ToLower() == twitchMessageHeal.ToLower())
         {
             playerStats.playerHeal();

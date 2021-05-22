@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TwitchChat : MonoBehaviour
 {
-    public event System.Action<string> OnMessageReceived;
+    public event System.Action<string,string> OnMessageReceived;
     private UIMenu UIMenu; 
     private TcpClient twitchClient;
     private string server = "irc.chat.twitch.tv";
@@ -34,8 +34,12 @@ public class TwitchChat : MonoBehaviour
             foreach(string message in receivedMessages)
             {
                 int messageIndex = message.IndexOf("PRIVMSG #");
+                int nameIndex = message.IndexOf("#");
+
+                Debug.Log(message.Substring(nameIndex));
+                string userMessage = message.Substring(nameIndex);
                 string cleanMessage = message.Substring(messageIndex + channelName.Length + 11);
-                OnMessageReceived?.Invoke(cleanMessage);
+                OnMessageReceived?.Invoke(cleanMessage, userMessage);
             }
 
             receivedMessages.Clear();

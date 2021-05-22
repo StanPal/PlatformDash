@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
         {
             patrolPointIndex = patrolPointIndex < patrolPointPositions.Count - 1 ? patrolPointIndex + 1 : 0;
             Vector3 directionToPatrolPoint = patrolPointPositions[patrolPointIndex] - transform.position;
-            transform.right = directionToPatrolPoint;
+            //transform.right = directionToPatrolPoint;
         }
 
         rb.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);

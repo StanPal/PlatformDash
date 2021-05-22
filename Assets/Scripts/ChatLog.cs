@@ -23,6 +23,7 @@ public class ChatLog : MonoBehaviour
     private void Update()
     {
         CheckNewMessage();
+        _verticalScrollBar.value = 0;
     }
 
     private void CheckNewMessage()
@@ -40,7 +41,7 @@ public class ChatLog : MonoBehaviour
     public void ChatLogChange(string chatInput)
     {
         messageQueue.Enqueue(chatInput);
-        _verticalScrollBar.value = 0;
+        
 
     }
 }
